@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#6d4be8">
-  <meta name="description" content="우리 반의 단어와 추억을 골라 노래 가사를 부탁할 프롬프트를 만들어요. 초등학생을 위한 우리 반 노래공방.">
+  <meta name="description" content="우리 반의 단어와 추억을 골라 Gemini에게 Suno용 가사와 음악 지침을 부탁할 프롬프트를 만들어요. 초등학생을 위한 우리 반 노래공방.">
   <title>우리 반 노래공방 · 추억이 노래가 되는 곳</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=2">
-  <script src="app.js?v=2" defer></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script src="app.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip" href="#song-form">입력으로 바로 가기</a>
   <header class="header"><a href="./" class="brand"><span class="logo" aria-hidden="true">♫</span> 우리 반 노래공방</a><span class="header-note">우리의 이야기로 만드는 노래</span></header>
   <main>
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy"><span class="eyebrow"><span aria-hidden="true">✦</span> 작은 추억, 반짝이는 노래</span><h1 id="hero-title">우리 반 이야기가<br><span>노래가 되는 순간!</span></h1><p>몇 가지를 고르고 우리 반 이야기를 들려주세요.<br>AI에게 가사를 부탁할 <strong>프롬프트</strong>를 만들어 드려요.</p><div class="hero-tags"><span>✏️ 쉬운 보기 선택</span><span>⏱ 약 1분 노래</span><span>💜 다정한 가사</span></div></div>
+      <div class="hero-copy"><span class="eyebrow"><span aria-hidden="true">✦</span> 작은 추억, 반짝이는 노래</span><h1 id="hero-title">우리 반 이야기가<br><span>노래가 되는 순간!</span></h1><p>몇 가지를 고르고 우리 반 이야기를 들려주세요.<br>Gemini에게 가사와 음악 지침을 부탁할<br><strong>프롬프트</strong>를 만들어 드려요.</p><div class="hero-tags"><span>✏️ 쉬운 보기 선택</span><span>⏱ 약 1분 노래</span><span>💜 다정한 가사</span></div></div>
       <div class="hero-art" aria-hidden="true"><span class="spark s1">✧</span><span class="note n1">♪</span><div class="record"><div class="record-label">OUR CLASS<br><b>♫</b><span>함께라서 빛나</span></div></div><div class="sticker">우리 반 첫 번째 싱글 ✨</div><span class="note n2">♫</span><span class="spark s2">✦</span></div>
     </section>
-    <ol class="steps" aria-label="이용 순서"><li><span>1</span><b>우리 반 이야기 담기</b></li><li><span>2</span><b>프롬프트 복사하기</b></li><li><span>3</span><b>AI에게 가사 부탁하기</b></li></ol>
+    <ol class="steps" aria-label="이용 순서"><li><span>1</span><b>우리 반 이야기 담기</b></li><li><span>2</span><b>프롬프트 복사하기</b></li><li><span>3</span><b>Gemini에 붙여 넣기</b></li></ol>
     <div class="workspace">
       <form id="song-form">
         <div class="form-intro"><h2>어떤 노래를 만들어 볼까요?</h2><p><span class="required">*</span> 표시는 꼭 채워 주세요.</p></div>
@@ -36,7 +36,7 @@
       </form>
       <aside class="sidebar" aria-label="노래 준비 현황"><div class="summary"><div class="summary-top"><span class="eyebrow">OUR CLASS PLAYLIST</span><span aria-hidden="true">✦</span></div><div class="album" aria-hidden="true"><div class="album-sun">♫</div><span>우리의 모든 순간이<br>음악이 될 거야</span><div class="equalizer"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><h2 id="summary-title">우리 반의 노래</h2><p id="summary-style">어떤 노래가 탄생할까요?</p><div class="progress-heading"><span>노래 재료 모으는 중</span><b id="progress-label">0 / 6</b></div><progress id="progress" max="6" value="0" aria-label="필수 입력 완료 현황"></progress><ul class="checklist" id="checklist"></ul><div class="kind-note"><span aria-hidden="true">💌</span><p>모두가 주인공인 노래!<br><b>친구를 아끼는 마음</b>을 담아 주세요.</p></div></div><p class="sidebar-note">로그인 없이 · 설치 없이 · 자유롭게</p></aside>
     </div>
-    <section id="result" class="result card" hidden aria-labelledby="result-title"><div class="result-heading"><span class="result-icon" aria-hidden="true">🎉</span><div><span class="eyebrow">READY TO COPY</span><h2 id="result-title" tabindex="-1">우리 반 프롬프트가 완성됐어요!</h2></div></div><p>아래 글을 복사해서 <b>선생님과 함께 사용하는 AI 채팅창</b>에 붙여 넣어 보세요.</p><label for="prompt" class="sr-only">복사할 최종 프롬프트</label><textarea id="prompt" readonly rows="18" spellcheck="false"></textarea><div class="result-actions"><button type="button" class="primary" id="copy">프롬프트 복사하기 <span aria-hidden="true">⧉</span></button><button type="button" class="secondary" id="edit">다시 수정하기</button></div><p id="copy-status" role="status" class="copy-status"></p><div class="next-step"><b>그다음은 이렇게!</b><p>① AI 채팅창에서 가사 만들기 → ② 가사를 읽고 다듬기 → ③ 선생님과 함께 Suno의 가사 입력란에 붙여 넣기</p><small>이 사이트는 프롬프트를 만들어요. 가사와 음악은 연결해서 사용하는 AI 서비스에서 생성해요.</small></div></section>
+    <section id="result" class="result card" hidden aria-labelledby="result-title"><div class="result-heading"><span class="result-icon" aria-hidden="true">🎉</span><div><span class="eyebrow">READY TO COPY</span><h2 id="result-title" tabindex="-1">우리 반 프롬프트가 완성됐어요!</h2></div></div><p>아래 글을 복사해서 <b>선생님과 함께 Gemini</b>에 붙여 넣어 보세요. Gemini가 <b>Suno에 넣을 가사와 음악 지침</b>을 각각 만들어 줘요.</p><label for="prompt" class="sr-only">복사할 최종 프롬프트</label><textarea id="prompt" readonly rows="18" spellcheck="false"></textarea><div class="result-actions"><button type="button" class="primary" id="copy">프롬프트 복사하기 <span aria-hidden="true">⧉</span></button><button type="button" class="secondary" id="edit">다시 수정하기</button></div><p id="copy-status" role="status" class="copy-status"></p><div class="next-step"><b>그다음은 이렇게!</b><p>① Gemini에서 가사와 음악 지침 만들기 → ② 결과를 읽고 다듬기 → ③ Suno에 가사와 음악 지침을 각각 붙여 넣기</p><small>이 사이트는 Gemini에 줄 프롬프트를 만들어요. Gemini의 가사는 Suno의 가사 입력란에, 음악 지침은 음악 스타일 입력란에 넣어 주세요.</small></div></section>
   </main>
   <footer><a class="brand" href="./"><span aria-hidden="true">♫</span> 우리 반 노래공방</a><p>서로 다른 우리가 모여, 하나의 노래로.</p><button id="reset" type="button">입력 내용 모두 지우기</button></footer>
   <dialog id="reset-dialog"><h2>처음부터 다시 만들까요?</h2><p>이 화면에 입력한 내용이 모두 지워져요.</p><div class="result-actions"><button id="cancel-reset" class="secondary" type="button">계속 만들기</button><button id="confirm-reset" class="primary" type="button">지우고 다시 시작</button></div></dialog>
