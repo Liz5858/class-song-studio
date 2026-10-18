@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6d4be8">
+  <meta name="description" content="우리 반의 단어와 추억을 골라 노래 가사를 부탁할 프롬프트를 만들어요. 초등학생을 위한 우리 반 노래공방.">
+  <title>우리 반 노래공방 · 추억이 노래가 되는 곳</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#song-form">입력으로 바로 가기</a>
+  <header class="header"><a href="./" class="brand"><span class="logo" aria-hidden="true">♫</span> 우리 반 노래공방</a><span class="header-note">우리의 이야기로 만드는 노래</span></header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><span class="eyebrow"><span aria-hidden="true">✦</span> 작은 추억, 반짝이는 노래</span><h1 id="hero-title">우리 반 이야기가<br><span>노래가 되는 순간!</span></h1><p>몇 가지를 고르고 우리 반 이야기를 들려주세요.<br>AI에게 가사를 부탁할 <strong>프롬프트</strong>를 만들어 드려요.</p><div class="hero-tags"><span>✏️ 쉬운 보기 선택</span><span>⏱ 약 1분 노래</span><span>💜 다정한 가사</span></div></div>
+      <div class="hero-art" aria-hidden="true"><span class="spark s1">✧</span><span class="note n1">♪</span><div class="record"><div class="record-label">OUR CLASS<br><b>♫</b><span>함께라서 빛나</span></div></div><div class="sticker">우리 반 첫 번째 싱글 ✨</div><span class="note n2">♫</span><span class="spark s2">✦</span></div>
+    </section>
+    <ol class="steps" aria-label="이용 순서"><li><span>1</span><b>우리 반 이야기 담기</b></li><li><span>2</span><b>프롬프트 복사하기</b></li><li><span>3</span><b>AI에게 가사 부탁하기</b></li></ol>
+    <div class="workspace">
+      <form id="song-form">
+        <div class="form-intro"><h2>어떤 노래를 만들어 볼까요?</h2><p><span class="required">*</span> 표시는 꼭 채워 주세요.</p></div>
+        <section class="card" aria-labelledby="class-heading"><div class="section-title"><span class="number">01</span><h3 id="class-heading">우리는 몇 학년, 몇 반인가요? <span class="required">*</span></h3><span class="section-icon" aria-hidden="true">🏫</span></div><div class="class-fields"><label for="grade">학년<select id="grade" required><option value="">학년 선택</option><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option><option value="4">4학년</option><option value="5">5학년</option><option value="6">6학년</option></select></label><label for="classroom">반<input id="classroom" type="number" min="1" max="99" step="1" placeholder="예: 3" required inputmode="numeric"></label></div><p class="hint">학교 이름이나 친구들의 실명은 쓰지 않아도 괜찮아요.</p></section>
+        <section class="card" aria-labelledby="words-heading"><div class="section-title"><span class="number">02</span><h3 id="words-heading">우리 반을 표현하는 단어 3개 <span class="required">*</span></h3><span class="section-icon" aria-hidden="true">🌈</span></div><p class="description">아래에서 고르거나 직접 써 보세요. 최대 3개예요!</p><div class="word-fields"><label class="sr-only" for="word1">첫 번째 단어</label><input id="word1" maxlength="20" required placeholder="첫 번째 단어"><label class="sr-only" for="word2">두 번째 단어</label><input id="word2" maxlength="20" required placeholder="두 번째 단어"><label class="sr-only" for="word3">세 번째 단어</label><input id="word3" maxlength="20" required placeholder="세 번째 단어"></div><div class="chips" id="word-choices" aria-label="우리 반 단어 보기"></div><p class="hint" id="word-help" aria-live="polite">단어를 누르면 빈칸에 쏙 들어가요.</p></section>
+        <section class="card" aria-labelledby="memory-heading"><div class="section-title"><span class="number">03</span><h3 id="memory-heading">가장 재미있었던 일은? <span class="required">*</span></h3><span class="section-icon" aria-hidden="true">📸</span></div><label class="sr-only" for="memory">우리 반에서 가장 재미있었던 일</label><textarea id="memory" rows="3" maxlength="300" required placeholder="예: 운동회에서 서로 응원하며 끝까지 달렸어요."></textarea><div class="chips" id="memory-choices" aria-label="재미있었던 일 보기"></div><p class="hint">보기를 고른 뒤 우리 반 이야기로 바꿔도 좋아요.</p></section>
+        <section class="card" aria-labelledby="pride-heading"><div class="section-title"><span class="number">04</span><h3 id="pride-heading">우리 반의 자랑거리는? <span class="required">*</span></h3><span class="section-icon" aria-hidden="true">🏆</span></div><label class="sr-only" for="pride">우리 반의 자랑거리</label><textarea id="pride" rows="3" maxlength="300" required placeholder="예: 어려운 일이 생기면 서로 도와줘요."></textarea><div class="chips" id="pride-choices" aria-label="자랑거리 보기"></div></section>
+        <section class="card" aria-labelledby="music-heading"><div class="section-title"><span class="number">05</span><h3 id="music-heading">어떤 분위기로 부를까요? <span class="required">*</span></h3><span class="section-icon" aria-hidden="true">🎧</span></div><fieldset><legend class="sr-only">노래 분위기</legend><div class="music-grid" id="music-choices"></div></fieldset><fieldset class="voices"><legend>목소리도 골라 주세요 <span class="required">*</span></legend><div class="voice-grid" id="voice-choices"></div></fieldset></section>
+        <section class="card" aria-labelledby="extra-heading"><div class="section-title"><span class="number">06</span><h3 id="extra-heading">마지막으로, 전하고 싶은 말</h3><span class="optional">선택</span></div><label for="title">노래 제목 <span class="label-hint">떠오르는 제목이 있나요?</span><input id="title" maxlength="40" placeholder="예: 함께라서 빛나는 우리"></label><label for="message">가사에 꼭 넣고 싶은 한마디<input id="message" maxlength="120" placeholder="예: 내년에도 우리의 우정은 계속될 거야!"></label></section>
+        <button type="submit" class="primary generate">✦ 우리 반 프롬프트 만들기 <span aria-hidden="true">→</span></button><p class="under-button">입력한 이야기는 이 화면에서만 사용하며 서버에 저장하지 않아요.</p>
+      </form>
+      <aside class="sidebar" aria-label="노래 준비 현황"><div class="summary"><div class="summary-top"><span class="eyebrow">OUR CLASS PLAYLIST</span><span aria-hidden="true">✦</span></div><div class="album" aria-hidden="true"><div class="album-sun">♫</div><span>우리의 모든 순간이<br>음악이 될 거야</span><div class="equalizer"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><h2 id="summary-title">우리 반의 노래</h2><p id="summary-style">어떤 노래가 탄생할까요?</p><div class="progress-heading"><span>노래 재료 모으는 중</span><b id="progress-label">0 / 6</b></div><progress id="progress" max="6" value="0" aria-label="필수 입력 완료 현황"></progress><ul class="checklist" id="checklist"></ul><div class="kind-note"><span aria-hidden="true">💌</span><p>모두가 주인공인 노래!<br><b>친구를 아끼는 마음</b>을 담아 주세요.</p></div></div><p class="sidebar-note">로그인 없이 · 설치 없이 · 자유롭게</p></aside>
+    </div>
+    <section id="result" class="result card" hidden aria-labelledby="result-title"><div class="result-heading"><span class="result-icon" aria-hidden="true">🎉</span><div><span class="eyebrow">READY TO COPY</span><h2 id="result-title" tabindex="-1">우리 반 프롬프트가 완성됐어요!</h2></div></div><p>아래 글을 복사해서 <b>선생님과 함께 사용하는 AI 채팅창</b>에 붙여 넣어 보세요.</p><label for="prompt" class="sr-only">복사할 최종 프롬프트</label><textarea id="prompt" readonly rows="18" spellcheck="false"></textarea><div class="result-actions"><button type="button" class="primary" id="copy">프롬프트 복사하기 <span aria-hidden="true">⧉</span></button><button type="button" class="secondary" id="edit">다시 수정하기</button></div><p id="copy-status" role="status" class="copy-status"></p><div class="next-step"><b>그다음은 이렇게!</b><p>① AI 채팅창에서 가사 만들기 → ② 가사를 읽고 다듬기 → ③ 선생님과 함께 Suno의 가사 입력란에 붙여 넣기</p><small>이 사이트는 프롬프트를 만들어요. 가사와 음악은 연결해서 사용하는 AI 서비스에서 생성해요.</small></div></section>
+  </main>
+  <footer><a class="brand" href="./"><span aria-hidden="true">♫</span> 우리 반 노래공방</a><p>서로 다른 우리가 모여, 하나의 노래로.</p><button id="reset" type="button">입력 내용 모두 지우기</button></footer>
+  <dialog id="reset-dialog"><h2>처음부터 다시 만들까요?</h2><p>이 화면에 입력한 내용이 모두 지워져요.</p><div class="result-actions"><button id="cancel-reset" class="secondary" type="button">계속 만들기</button><button id="confirm-reset" class="primary" type="button">지우고 다시 시작</button></div></dialog>
+</body>
+</html>
