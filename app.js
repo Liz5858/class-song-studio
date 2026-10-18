@@ -91,6 +91,9 @@ ${JSON.stringify(details, null, 2)}
 9. 제목, 설명, 인사말, 코드 블록, 노래 분위기나 목소리에 대한 별도 설명은 출력하지 마. 요청한 제목이 있다면 제목의 뜻을 가사에 담아 줘.`;
 }
 function refresh() {
+  for (const input of [...words, $('memory'), $('pride')]) {
+    if (input.value.trim()) input.setCustomValidity('');
+  }
   const done = completion(); const count = done.filter(Boolean).length;
   $('progress').value = count; $('progress-label').textContent = `${count} / 6`;
   const labels = ['학년과 반', '우리 반 단어 3개', '함께한 추억', '우리 반 자랑거리', '노래 분위기', '목소리'];
