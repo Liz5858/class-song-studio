@@ -2,13 +2,12 @@
 const $ = (id) => document.getElementById(id);
 const form = $('song-form');
 const words = ['word1', 'word2', 'word3'].map($);
-const styles = [
-  ['💃', '신나는 댄스', '통통 튀는 신나는 댄스 음악'],
-  ['🎤', '힙합', '리듬감 있고 즐거운 힙합'],
-  ['💗', '감동적인 발라드', '따뜻하고 감동적인 발라드'],
-  ['🎸', '밝은 밴드 음악', '활기차고 밝은 밴드 음악'],
-  ['✨', '케이팝', '밝고 경쾌한 케이팝'],
-  ['🎶', '합창', '친구들과 함께 부르는 따뜻한 합창'],
+const musicInputs = ['feeling', 'genre', 'instruments'].map($);
+const textInputs = [...words, $('memory'), $('pride'), ...musicInputs];
+const musicExamples = [
+  ['feeling-choices', 'feeling', ['신나고 즐거운', '따뜻하고 감동적인', '밝고 희망찬', '씩씩하고 힘찬', '잔잔하고 편안한', '몽글몽글 귀여운']],
+  ['genre-choices', 'genre', ['댄스', '힙합', '발라드', '밝은 밴드 음악', '케이팝', '합창', '동요', '재즈']],
+  ['instrument-choices', 'instruments', ['피아노', '기타', '드럼', '베이스', '바이올린', '우쿨렐레', '플루트', '신디사이저']],
 ];
 const voices = [['👩', '여자'], ['👨', '남자'], ['🧒', '아이들']];
 let generated = false;
@@ -54,13 +53,25 @@ function addRadio(container, name, icon, label, value) {
   const text = document.createElement('span'); text.textContent = label;
   wrapper.append(input, picture, text); $(container).append(wrapper);
 }
-styles.forEach(([icon, label, value]) => addRadio('music-choices', 'style', icon, label, value));
+function instrumentList() {
+  return $('instruments').value.split(/[,，、]/).map((item) => item.trim()).filter(Boolean);
+}
+for (const [container, input, examples] of musicExamples) {
+  for (const example of examples) addChip(container, example, () => {
+    if (input === 'instruments') {
+      const current = instrumentList();
+      const next = current.includes(example) ? current.filter((item) => item !== example) : [...current, example];
+      const value = next.join(', ');
+      if (value.length <= $('instruments').maxLength) $('instruments').value = value;
+    } else { $(input).value = example; }
+  });
+}
 voices.forEach(([icon, label]) => addRadio('voice-choices', 'voice', icon, label, label));
 function selected(name) { return form.querySelector(`input[name="${name}"]:checked`)?.value || ''; }
 function completion() {
   return [Boolean($('grade').value && $('classroom').value && $('classroom').validity.valid),
     words.every((input) => Boolean(input.value.trim())), Boolean($('memory').value.trim()),
-    Boolean($('pride').value.trim()), Boolean(selected('style')), Boolean(selected('voice'))];
+    Boolean($('pride').value.trim()), musicInputs.every((input) => Boolean(input.value.trim())), Boolean(selected('voice'))];
 }
 function buildPrompt() {
   const title = $('title').value.trim(); const message = $('message').value.trim();
@@ -69,7 +80,8 @@ function buildPrompt() {
     '우리 반을 표현하는 단어 3개': words.map((input) => input.value.trim()).join(', '),
     '우리 반에서 가장 재미있었던 일': $('memory').value.trim(),
     '우리 반의 자랑거리': $('pride').value.trim(),
-    '노래 분위기': selected('style'), '목소리': selected('voice'),
+    '느낌': $('feeling').value.trim(), '장르': $('genre').value.trim(),
+    '악기': $('instruments').value.trim(), '목소리': selected('voice'),
   };
   if (title) details['원하는 노래 제목'] = title;
   if (message) details['가사에 꼭 넣고 싶은 한마디'] = message;
@@ -91,17 +103,20 @@ ${JSON.stringify(details, null, 2)}
 9. 제목, 설명, 인사말, 코드 블록, 노래 분위기나 목소리에 대한 별도 설명은 출력하지 마. 요청한 제목이 있다면 제목의 뜻을 가사에 담아 줘.`;
 }
 function refresh() {
-  for (const input of [...words, $('memory'), $('pride')]) {
+  for (const input of textInputs) {
     if (input.value.trim()) input.setCustomValidity('');
   }
   const done = completion(); const count = done.filter(Boolean).length;
   $('progress').value = count; $('progress-label').textContent = `${count} / 6`;
-  const labels = ['학년과 반', '우리 반 단어 3개', '함께한 추억', '우리 반 자랑거리', '노래 분위기', '목소리'];
+  const labels = ['학년과 반', '우리 반 단어 3개', '함께한 추억', '우리 반 자랑거리', '느낌 · 장르 · 악기', '목소리'];
   $('checklist').replaceChildren(...labels.map((label, index) => {
     const li = document.createElement('li'); li.textContent = label; if (done[index]) li.className = 'done'; return li;
   }));
   $('summary-title').textContent = $('title').value.trim() || (done[0] ? `${$('grade').value}학년 ${$('classroom').value}반의 노래` : '우리 반의 노래');
-  $('summary-style').textContent = [selected('style'), selected('voice') && `${selected('voice')} 목소리`].filter(Boolean).join(' · ') || '어떤 노래가 탄생할까요?';
+  $('summary-style').textContent = [...musicInputs.map((input) => input.value.trim()), selected('voice') && `${selected('voice')} 목소리`].filter(Boolean).join(' · ') || '어떤 노래가 탄생할까요?';
+  for (const [container, input] of musicExamples) {
+    [...$(container).children].forEach((button) => button.setAttribute('aria-pressed', String(input === 'instruments' ? instrumentList().includes(button.textContent) : $(input).value.trim() === button.textContent)));
+  }
   for (const button of $('word-choices').children) button.setAttribute('aria-pressed', String(words.some((input) => input.value.trim() === button.textContent)));
   for (const [container, input, choices] of [['memory-choices', 'memory', memories], ['pride-choices', 'pride', prides]]) {
     [...$(container).children].forEach((button, i) => button.setAttribute('aria-pressed', String($(input).value.trim() === choices[i][1])));
@@ -115,7 +130,7 @@ form.addEventListener('input', refresh);
 form.addEventListener('change', refresh);
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  for (const input of [...words, $('memory'), $('pride')]) input.setCustomValidity(input.value.trim() ? '' : '빈칸에 우리 반 이야기를 넣어 주세요.');
+  for (const input of textInputs) input.setCustomValidity(input.value.trim() ? '' : '보기를 고르거나 빈칸에 직접 써 주세요.');
   if (!form.reportValidity()) return;
   generated = true; $('prompt').value = buildPrompt(); $('result').hidden = false;
   $('copy-status').textContent = ''; $('result-title').focus(); $('result').scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -134,7 +149,7 @@ $('edit').addEventListener('click', () => { $('grade').focus(); form.scrollIntoV
 $('reset').addEventListener('click', () => $('reset-dialog').showModal());
 $('cancel-reset').addEventListener('click', () => $('reset-dialog').close());
 $('confirm-reset').addEventListener('click', () => {
-  form.reset(); for (const input of [...words, $('memory'), $('pride')]) input.setCustomValidity('');
+  form.reset(); for (const input of textInputs) input.setCustomValidity('');
   generated = false; $('prompt').value = ''; $('result').hidden = true; $('copy-status').textContent = '';
   $('word-help').textContent = '단어를 누르면 빈칸에 쏙 들어가요.'; refresh(); $('reset-dialog').close();
   $('grade').focus();
